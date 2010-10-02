@@ -11,10 +11,10 @@ $('#search').submit(function(e) {
   e.preventDefault();
   resultsContainer.empty();
 
-  var term = $(this).find('input').val();
-  term = window.INTERNET ? 'select url,title,abstract from search.news where query=' + term : term;
+  var term = $(this).find('input').val(),
+      query = window.INTERNET ? 'select url,title,abstract from search.news where query=' + term : term;
 
-  $.getJSON(searchUrl, { q : term, format : 'json' }, function(resp) {
+  $.getJSON(searchUrl, { q : query, format : 'json' }, function(resp) {
     resultsContainer.html(
       $.map(resp.query.results.result, function(r) {
         return resultsTpl

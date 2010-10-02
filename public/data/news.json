@@ -1,0 +1,67 @@
+{
+    "query": {
+        "count": "10",
+        "created": "2010-04-26T07:27:39Z",
+        "lang": "en-US",
+        "diagnostics": {
+            "publiclyCallable": "true",
+            "url": {
+                "execution-time": "100",
+                "content": "http://boss.yahooapis.com/ysearch/news/v1/foo?format=xml&start=0&count=10"
+            },
+            "user-time": "103",
+            "service-time": "100",
+            "build-version": "6319"
+        },
+        "results": {
+            "result": [{
+                "title": "Local Business News",
+                "url": "http://www.4ni.co.uk/news.asp?id=110477"
+            },
+            {
+                "title": "$9.7M Mortgage for Arundel Plaza in Glen Burnie",
+                "url": "http://baltimorerealestate.citybizlist.com/yourcitybiznews/detail.aspx?id=75559"
+            },
+            {
+                "abstract": "April 26 (Bloomberg) -- An Asian stock index must overcome a support-turned-resistance line this week to maintain a rally or face a longer slump, according to CIMG Investment Bank Bhd.",
+                "title": "Asian Stock Index Faces ‘Major’ Resistance: Technical Analysis",
+                "url": "http://www.bloomberg.com/apps/news?sid=aUjxDs1Gt39Q&pid=20601087"
+            },
+            {
+                "abstract": "KUALA LUMPUR, April 26 (Bernama) -- With the number of women joining the ranks of professionals increasing each year, women can influence social change by contributing to the respective professions they are engaged in, according to the Malaysian Institute of Accountants (MIA).",
+                "title": "Harness Feminine Traits For Social Change, Says MIA",
+                "url": "http://www.bernama.com/bernama/v5/newsindex.php?id=493662"
+            },
+            {
+                "abstract": "CANADIAN performance artist Fan Yang has made a name for himself by placing animals and people in soap bubbles, including a 4,000kg elephant in California.",
+                "title": "Soap opera",
+                "url": "http://www.straitstimes.com/BreakingNews/Lifestyle/Story/STIStory_519382.html"
+            },
+            {
+                "abstract": "Until midnight tonight you can 25% off badges to this falls CMJ ...",
+                "title": "Save 25% On CMJ Marathon Badges Until Midnight Tonight",
+                "url": "http://www.cmj.com/articles/display_article.php?id=177048191"
+            },
+            {
+                "abstract": "BRUSSELS, April 26 (Reuters) - U.S. money manager State Street Corp secured EU regulatory approval on Monday for its acquisition of the securities services arm of Italy's biggest retail bank, Intesa Sanpaolo. State Street said in December last year it would pay $1.87 billion cash and also inject $800 million in capital into the unit, valuing the deal at $2.5 billion or 1.75 billion euros. The ...",
+                "title": "(AFX UK Focus) 2010-04-26 16:35 EU okay for State Street buy of Intesa securities arm",
+                "url": "http://www.iii.co.uk/news/?type=afxnews&articleid=7860058&subject=companies&action=article"
+            },
+            {
+                "abstract": "Start your week with some smooth jazz, punk rock or even a little light reading.",
+                "title": "4/26: Jazz, Punk and Books",
+                "url": "http://www.nbcconnecticut.com/around-town/events/426--Jazz-Punk-and-Books-91911739.html"
+            },
+            {
+                "abstract": "Not enough sight gags in your gender politics? Never fear - Jordan Harrison is here. His \"Act a Lady,\"...",
+                "title": "'Act a Lady' far from a drag",
+                "url": "http://www.bostonherald.com/entertainment/arts_culture/view.bg?articleid=1250147&srvc=rss"
+            },
+            {
+                "abstract": "There are just two more weeks until the ReadWriteWeb Mobile Summit 2010 , so we invite you to register now . Be a part of high-value, intimate conversations with people working throughout the world of mobile, from garage developers to industry luminaries. The summit will take place May 7, 2010 , in Mountain View, California and will be an exploration of the latest mobile development trends, both ...",
+                "title": "2 More Weeks Until the ReadWriteWeb Mobile Summit - Register Today!",
+                "url": "http://www.readwriteweb.com/archives/2_more_weeks_until_the_readwriteweb_mobile_summit_-_register_today.php"
+            }]
+        }
+    }
+}

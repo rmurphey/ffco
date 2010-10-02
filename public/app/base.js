@@ -1,7 +1,8 @@
 (function($){
 
 var resultsContainer = $('#results'),
-    resultsTpl = '<li><h2><a href="{url}">{title}</a></h2><p>{abstract}</p><p class="tools"><span class="like">like</span></p></li>',
+    resultsTpl = '<li><h2><a href="{url}">{title}</a></h2><p>{abstract}</p>' + 
+      '<p class="tools"><span class="like">like</span></p></li>',
     searchUrl = window.INTERNET ? 
       'http://query.yahooapis.com/v1/public/yql?callback=?' :
       '/data/news.json';

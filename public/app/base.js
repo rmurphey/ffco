@@ -12,7 +12,7 @@ $('#search').submit(function(e) {
   resultsContainer.empty();
 
   var term = $(this).find('input').val();
-  term = window.INTERNET ? term : 'select url,title,abstract from search.news where query=' + term;
+  term = window.INTERNET ? 'select url,title,abstract from search.news where query=' + term : term;
 
   $.getJSON(searchUrl, { q : term, format : 'json' }, function(resp) {
     resultsContainer.html(

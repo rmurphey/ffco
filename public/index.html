@@ -2,30 +2,69 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Page Title</title>
+  <title>Functionality-Focused Code Organization</title>
   <style>
+  body {
+  font-family:Helvetica, Arial, sans-serif;
+  width:970px;
+  margin:10px auto;
+  }
   .tools span {
   cursor:pointer;
   }
+  .tools span.disabled {
+  color:#999;
+  cursor:default;
+  }
+  #messageBox {
+  border:5px solid #000;
+  border-top:none;
+  padding:10px;
+  background-color:#fff;
+  margin:-10px 0 20px 0;
+  }
+
+  #messageBox.error {
+  border-color:red;
+  }
+
+  #messageBox.warning {
+  border-color:orange;
+  }
   </style>
 </head>
-<body>
+<body data-page="search">
   <form action="/search" method="get" id="search">
     <label for="q">Enter your search</label>
     <input name="q" type="search">
   </form>
   <ul id="results"></ul>
   
-  <script src="/lib/require-jquery-1.4.2.js"></script>
+  <script src="/lib/requireplugins-jquery-1.4.2.js"></script>
   <script>
-  // do we have the internet? 
-  window.INTERNET = false; // germany hotel dev ftw
-
   // tell require where it can find our files
   require({ baseUrl : '/' });
   
   // load our base file
-  require(['app/base']);
+
+  // require(['app/base']);
+
+  require(['lib/inheritance.js', 'lib/pubsub.js', 'lib/mustache/mustache.js'], function() {
+    var pages = {
+      'search' : function() {
+        // app-wide files the search page will require
+        require(['app/services/Like','app/modules/Messaging']);
+
+        // setup for search page
+        require(['app/Search'], function(app) { app.init(); });
+      }
+    };
+
+    $(document).ready(function() {
+      var page = $('body').attr('data-page');
+      pages[page] && pages[page]();
+    });
+  });
   </script>
 </body>
 </html>

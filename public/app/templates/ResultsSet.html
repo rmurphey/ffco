@@ -1,0 +1,12 @@
+<li>
+  <h1>{{svc}}</h1>
+  <ul>
+    {{#results}}
+    <li data-url="{{url}}">
+      <h2><a href="{{url}}">{{title}}</a></h2>
+      {{#abstract}}<p>{{.}}</p>{{/abstract}}
+      <p class="tools"><span class="like">Like</span></p>
+    </li>
+    {{/results}}
+  </ul>
+</li>

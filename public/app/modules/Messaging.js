@@ -1,36 +1,53 @@
-require.def(function() {
-  var messageBox = $('<div id="messageBox"/>').prependTo('body').hide();
+require.def(['text!app/templates/MessageBox.html'], function(tpl) {
+  var messageBox = $(tpl).prependTo('body').hide(),
+      content = messageBox.find('div.content'),
+      closer = messageBox.find('p.close span'),
+      messaging = {
+        _before : function(type) {
+          messageBox.removeClass().addClass(type); 
+        },
 
-  var messenger = {
-    _prep : function(type) {
-      messageBox.unbind('click');
-      messageBox.empty().removeClass().addClass(type);
-    },
+        _show : function() {
+          messageBox.slideDown(500);
+          this.closed = false;
+        },
 
-    _post : function(wait) {
-      messageBox.delay(wait || 0).slideUp();
-    },
+        _setMessage : function(msg) {
+          content.html(msg);
+        },
 
-    info : function(msg) {
-      this._prep('info');
-      messageBox.html(msg).slideDown();
-      this._post(5000);
-    },
+        _close : function(wait) {
+          if (this.closed) { return; }
+          this.closed = true;
+          messageBox.delay(wait || 0).slideUp();
+        },
 
-    error : function(msg) {
-      this._prep('error');
-      messageBox.html(msg + ' (click to dismiss)').slideDown(200);
-      messageBox.bind('click', $.proxy(this, '_post'));
-    },
+        info : function(msg) {
+          this._before('info');
+          this._setMessage(msg);
+          this._show();
+          this._close(3000);
+        },
 
-    warning : function(msg) {
-      this._prep('warning');
-      messageBox.html(msg).slideDown(500);
-      this._post(5000);
-    }
-  };
+        error : function(msg) {
+          this._before('error');
+          this._setMessage(msg);
+          this._show();
+        },
 
-  $.subscribe('/msg/info', $.proxy(messenger, 'info'));
-  $.subscribe('/msg/error', $.proxy(messenger, 'error'));
-  $.subscribe('/msg/warning', $.proxy(messenger, 'warning'));
+        warning : function(msg) {
+          this._before('warning');
+          this._setMessage(msg);
+          this._show();
+          this._close(5000);
+        }
+      };
+
+  closer.click($.proxy(messaging, '_close'));
+
+  $.subscribe('/msg/info', $.proxy(messaging, 'info'));
+  $.subscribe('/msg/error', $.proxy(messaging, 'error'));
+  $.subscribe('/msg/warning', $.proxy(messaging, 'warning'));
+
+  return messaging;
 });

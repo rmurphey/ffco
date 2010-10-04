@@ -3,22 +3,18 @@
 var resultsContainer = $('#results'),
     resultsTpl = '<li><h2><a href="{url}">{title}</a></h2><p>{abstract}</p>' + 
       '<p class="tools"><span class="like">like</span></p></li>',
-
     searchUrl = 'http://query.yahooapis.com/v1/public/yql?callback=?',
-
-    services = {
-      'search.news' : { 
-        fields : [ 'title', 'url', 'abstract' ] 
-      },
-      'search.web' : { 
-        fields : [ 'title', 'url' ] 
-      }
-    };
+    messageBox = $('<div id="messageBox"><p class="close"><span>Close</span></p><div class="content"></div></div>')
+      .prependTo('body').hide(),
+    messageBoxContent = messageBox.find('div.content');
 
 function buildQuery(term, svc, fields) {
-  return window.INTERNET ? 
-    'select ' + fields.join(',') + ' from ' + svc + ' where query=' + term : 
-    term;
+  return 'select title,abstract,url from ' + svc + ' where query=' + term;
+}
+
+function infoMessage(msg) {
+  messageBoxContent.html(msg)
+  messageBox.slideDown().delay(5000).slideUp();
 }
 
 $('#search').submit(function(e) {
@@ -27,10 +23,10 @@ $('#search').submit(function(e) {
 
   var term = $(this).find('input').val();
 
-  $.each(services, function(svcName, props) {
+  $.each(['search.news', 'search.web'], function(i, svcName) {
     $.getJSON(
       searchUrl, 
-      { q : buildQuery(term, svcName, props.fields), format : 'json' }, 
+      { q : buildQuery(term, svcName), format : 'json' }, 
       function(resp) {
         $('<li><h3>' + svcName + '</h3><ul></ul></li>')
           .appendTo(resultsContainer)
@@ -57,8 +53,7 @@ resultsContainer.delegate('p.tools span', 'click', function(e) {
   url = tool.closest('li').find('h2 a').attr('href');
 
   $.post('/like', { url : url }, function() {
-    // do this with a ui dialog?
-    alert('You liked ' + url);
+    infoMessage('You liked ' + url);
   });
 });
 

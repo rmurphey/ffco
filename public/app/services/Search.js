@@ -1,19 +1,16 @@
 require.def(function() {
-  var Service = function(config) {
-    this.name = config.name;
-    this.fields = config.fields || [ 'title', 'url', 'abstract' ];
+  var Service = {
+    name : '',
+    fields : [ 'title', 'abstract', 'url' ],
 
-    $.subscribe('/search', $.proxy(this, 'fetch'));
-
-    return this;
-  };
-
-  Service.prototype = {
+    baseUrl : '/data/news.json', // internet-free dev ftw
+    // baseUrl : 'http://query.yahooapis.com/v1/public/yql?callback=?', 
+    
     cache : {},
 
-    baseUrl : 'http://query.yahooapis.com/v1/public/yql?callback=?', 
+    fetch : function(term, cb) {
+      var self = this;
 
-    fetch : function(term) {
       this.term = term;
 
       if (this.cache[term]) {
@@ -22,7 +19,14 @@ require.def(function() {
         $.getJSON(
           this.baseUrl, 
           { q : this.buildQuery(term), format : 'json' }, 
-          $.proxy(this, 'handleResponse')
+          function(resp) {
+            $.proxy(self, 'handleResponse')(resp);
+            cb && $.isFunction(cb) && cb({
+              results : resp.query.results.result, 
+              svc : self.name,
+              fields : self.fields
+            });
+          }
         ); 
       }
     },
@@ -37,14 +41,13 @@ require.def(function() {
       }
 
       this.cache[this.term] = this.cache[this.term] || resp;
-
-      $.publish('/results', [{ 
-        results : resp.query.results.result, 
-        svc : this.name,
-        fields : this.fields
-      }]);
     }
   };
 
-  return Service;
+  return function(config) {
+    var s = Object.create(Service);
+    s.name = config.name;
+    if (config.fields) { s.fields = config.fields; }
+    return s;
+  };
 });

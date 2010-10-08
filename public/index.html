@@ -41,7 +41,7 @@
   }
   </style>
 </head>
-<body data-page="search">
+<body data-page="Search">
   <form action="/search" method="get" id="search">
     <label for="q">Enter your search</label>
     <input name="q" type="search">
@@ -53,24 +53,19 @@
   // tell require where it can find our files
   require({ baseUrl : '/' });
   
-  // load our base file
-
-  // require(['app/base']);
-
-  require(['lib/inheritance.js', 'lib/pubsub.js', 'lib/mustache/mustache.js'], function() {
-    var pages = {
-      'search' : function() {
-        // app-wide files the search page will require
-        require(['app/services/Like','app/modules/Messaging']);
-
-        // setup for search page
-        require(['app/Search'], function(app) { app.init(); });
-      }
+  Object.create = typeof(Object.create) == 'function' ? Object.create : 
+    function(o) {
+      var F = new Function();
+      F.prototype = o;
+      return new F();
     };
 
-    $(document).ready(function() {
-      var page = $('body').attr('data-page');
-      pages[page] && pages[page]();
+  // app-wide dependencies, not in requirejs module format
+  require(['lib/pubsub.js', 'lib/mustache/mustache.js'], function() {
+    // application
+    require(['app/app2'], function(init) {
+      // application init on ready
+      $(document).ready(init);
     });
   });
   </script>

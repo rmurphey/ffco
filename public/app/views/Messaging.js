@@ -45,9 +45,5 @@ require.def(['text!app/templates/MessageBox.html'], function(tpl) {
 
   closer.click($.proxy(messaging, '_close'));
 
-  $.subscribe('/msg/info', $.proxy(messaging, 'info'));
-  $.subscribe('/msg/error', $.proxy(messaging, 'error'));
-  $.subscribe('/msg/warning', $.proxy(messaging, 'warning'));
-
   return messaging;
 });

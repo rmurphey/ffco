@@ -1,4 +1,4 @@
-require.def(['text!./templates/ServiceResults.html'], function(resultsTpl) {
+require.def(['text!./templates/Results.html'], function(resultsTpl) {
   var Results = {
     // default container
     container : $('<ul/>'),
@@ -8,6 +8,8 @@ require.def(['text!./templates/ServiceResults.html'], function(resultsTpl) {
     },
 
     addResults : function(data) {
+      if (!data.results.length) { return; }
+
       $('<li/>')
         .appendTo(this.container)
         .append(Mustache.to_html(resultsTpl, data));

@@ -1,4 +1,4 @@
-require.def(['text!app/templates/MessageBox.html'], function(tpl) {
+require.def(['text!./templates/MessageBox.html'], function(tpl) {
   var messageBox = $(tpl).prependTo('body').hide(),
       content = messageBox.find('div.content'),
       closer = messageBox.find('p.close span'),
@@ -45,5 +45,9 @@ require.def(['text!app/templates/MessageBox.html'], function(tpl) {
 
   closer.click($.proxy(messaging, '_close'));
 
-  return messaging;
+  return {
+    info : messaging.info,
+    error : messaging.error,
+    warning : messaging.warning
+  };
 });

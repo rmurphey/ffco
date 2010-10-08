@@ -23,8 +23,7 @@ require.def(function() {
             $.proxy(self, 'handleResponse')(resp);
             cb && $.isFunction(cb) && cb({
               results : resp.query.results.result, 
-              svc : self.name,
-              fields : self.fields
+              svc : self.name
             });
           }
         ); 

@@ -3,8 +3,7 @@ require.def(function() {
     name : '',
     fields : [ 'title', 'abstract', 'url' ],
 
-    baseUrl : '/data/news.json', // internet-free dev ftw
-    // baseUrl : 'http://query.yahooapis.com/v1/public/yql?callback=?', 
+    baseUrl : 'http://query.yahooapis.com/v1/public/yql?callback=?', 
     
     cache : {},
 

@@ -6,6 +6,9 @@ require.def(['./views/Messaging'], function(messaging) {
     $.subscribe('/msg/warning', $.proxy(messaging, 'warning'));
 
     // per-page functionality
-    require(['/app/pages/' + $('body').attr('data-page')], function(pageFn) { pageFn && pageFn(); });
+    require(['/app/pages/' + $('body').attr('data-page')], function(pageFn) { 
+      // if a page module returns a function, run it
+      pageFn && $.isFunction(pageFn) && pageFn(); 
+    });
   };
 });

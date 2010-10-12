@@ -2,9 +2,7 @@ require.def(function() {
   var Service = {
     name : '',
     fields : [ 'title', 'abstract', 'url' ],
-
     baseUrl : 'http://query.yahooapis.com/v1/public/yql?callback=?', 
-    
     cache : {},
 
     fetch : function(term, cb) {
@@ -17,9 +15,9 @@ require.def(function() {
       } else {
         $.getJSON(
           this.baseUrl, 
-          { q : this.buildQuery(term), format : 'json' }, 
+          { q : this._buildQuery(term), format : 'json' }, 
           function(resp) {
-            $.proxy(self, 'handleResponse')(resp);
+            $.proxy(self, '_handleResponse')(resp);
             cb && $.isFunction(cb) && cb({
               results : resp.query.results.result, 
               svc : self.name
@@ -29,11 +27,11 @@ require.def(function() {
       }
     },
 
-    buildQuery : function(term) {
+    _buildQuery : function(term) {
       return 'select ' + this.fields.join(',') + ' from ' + this.name + ' where query="' + term + '"';
     },
 
-    handleResponse : function(resp) {
+    _handleResponse : function(resp) {
       if (!resp.query.results.result) { 
         return; 
       }

@@ -11,7 +11,7 @@ require.def(function() {
       this.term = term;
 
       if (this.cache[term]) {
-        this.handleResponse(term);
+        this._handleResponse(term);
       } else {
         $.getJSON(
           this.baseUrl, 

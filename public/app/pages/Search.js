@@ -7,11 +7,12 @@ require.def(
   [
     '../views/SearchInput',
     '../views/Results', 
-    '../services/Search'
+    '../services/Search',
+    '../services/ResultsTools'
   ], 
 
   // page setup 
-  function(searchInputSetup, resultsViewSetup, searcherSetup) {
+  function(searchInputSetup, resultsViewSetup, searcherSetup, resultsTools) {
     var resultsView = resultsViewSetup({ container : $('#results') }),
         searchInput = searchInputSetup($('#search')),
         searchers = $.map(
@@ -37,6 +38,12 @@ require.def(
         searcher.fetch('term', function(res) {
           resultsView.addResults(res);
         });
+      });
+    });
+    
+    $.each(['heart', 'hate'], function(i, tool) {
+      $.subscribe('/result/' + tool, function(url) {
+        resultsTools.handle(tool, url);
       });
     });
   }

@@ -3,9 +3,13 @@
 {{/svc}}
 <ul>
   {{#results}}
-  <li>
+  <li class="result" data-url="{{url}}">
     <h3><a href="{{url}}">{{{title}}}</a></h3>
     {{#abstract}}<p>{{{abstract}}}</p>{{/abstract}}
+    <ul class="resultTools">
+      <li class="heart" data-toolType="heart">heart</li>
+      <li class="hate" data-toolType="hate">hate</li>
+    </ul>
   </li>
   {{/results}}
 </ul>

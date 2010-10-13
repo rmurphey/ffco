@@ -7,33 +7,47 @@ require.def(
   [
     '../views/SearchInput',
     '../views/Results', 
-    '../services/Search'
+    '../services/Search',
+    '../services/ResultsTools'
   ], 
 
   // page setup 
-  function(searchInputSetup, resultsViewSetup, searcherSetup) {
+  function(searchInputSetup, resultsViewSetup, searcherSetup, resultsTools) {
     var resultsView = resultsViewSetup({ container : $('#results') }),
         searchInput = searchInputSetup($('#search')),
-        searchers = $.map(
-          [
-            // a list of the YQL services we want to enable
-            'search.web', 
-            'search.news' 
-          ], 
-          function(svcName) { return searcherSetup({ name : svcName }); }
-        );
+        searchers = {};
 
     // when the user searches for a term ...
-    $.subscribe('/search', function(term) {
+    $.subscribe('/search', function(term, svcs) {
       // clear the results area first
       resultsView.clear();
 
-      // then tell each searcher to fetch results
-      $.each(searchers, function(i, searcher) {
-        // when results come in, add them to the results view
-        searcher.fetch('term', function(res) {
-          resultsView.addResults(res);
+      // check to see if any services were indicated
+      if (!svcs.length) { return; }
+
+      // check to see if a search term was provided
+      if (!$.trim(term)) { return; }
+
+      // for each requested service ...
+      $.each(svcs, function(i, svc) {
+        // create a searcher for the service
+        // if one doesn't already exist
+        if (!searchers[svc]) {
+          searchers[svc] = searcherSetup({ name : svc });
+        }
+
+        // fetch results from the searcher
+        searchers[svc].fetch(term, function(results) {
+          resultsView.addResults(results);
         });
+      });
+    });
+    
+    // listen for heart, hate messages so we
+    // can handle them accordingly
+    $.each(['heart', 'hate'], function(i, tool) {
+      $.subscribe('/result/' + tool, function(url) {
+        resultsTools.handle(tool, url);
       });
     });
   }

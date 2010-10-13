@@ -24,12 +24,15 @@ require.def(
         );
 
     // when the user searches for a term ...
-    $.subscribe('/search', function(term) {
+    $.subscribe('/search', function(term, svcs) {
       // clear the results area first
       resultsView.clear();
 
       // then tell each searcher to fetch results
       $.each(searchers, function(i, searcher) {
+        // is the searcher one of the searchers the user requested?
+        if ($.inArray(searcher.name, svcs) < 0) { return; }
+        
         // when results come in, add them to the results view
         searcher.fetch('term', function(res) {
           resultsView.addResults(res);

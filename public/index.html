@@ -45,6 +45,14 @@
   <form action="/search" method="get" id="search">
     <label for="q">Enter your search</label>
     <input name="q" type="search">
+    <ul class="searchers">
+      <li>
+        <label><input type="checkbox" name="svc" value="search.web"> web</label>
+      </li>
+      <li>
+        <label><input type="checkbox" name="svc" value="search.news"> news</label>
+      </li>
+    </ul>
   </form>
   <ul id="results"></ul>
   

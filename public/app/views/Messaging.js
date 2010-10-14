@@ -97,8 +97,8 @@ require.def(
    * The public messaging API
    */
   return {
-    info : messaging.info,
-    error : messaging.error,
-    warning : messaging.warning
+    info : $.proxy(messaging, 'info'),
+    error : $.proxy(messaging, 'error'),
+    warning : $.proxy(messaging, 'warning')
   };
 });

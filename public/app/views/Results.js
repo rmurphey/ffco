@@ -19,6 +19,11 @@ function(resultsTpl) {
    */
   var results = {
     /**
+     * Types of tools each result will have. Tools are mutually exclusive
+     */
+    toolTypes : [ 'heart', 'hate' ],
+
+    /**
      * Clear the results view
      */
     clear : function() {
@@ -34,6 +39,8 @@ function(resultsTpl) {
     addResults : function(data) {
       // don't bother if there are no results in the set
       if (!data.results.length) { return; }
+
+      $.extend(data, { toolTypes : this.toolTypes });
       
       // create a list item for the results set
       $('<li/>')
@@ -75,7 +82,8 @@ function(resultsTpl) {
 
     var ret = {
       clear : $.proxy(results, 'clear'),
-      addResults : $.proxy(results, 'addResults')
+      addResults : $.proxy(results, 'addResults'),
+      toolTypes : results.toolTypes
     };
 
     // make sure we return the same thing if 

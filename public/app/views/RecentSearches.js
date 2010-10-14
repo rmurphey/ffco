@@ -26,7 +26,7 @@ function(tpl) {
      * Should be a jQuery object containing a single ul.
      */
     init : function(el) {
-      this.el = el.get(0); // ensure we only get one container
+      this.el = el.eq(0); // ensure we only get one container
       this.el.delegate('li', 'click', $.proxy(this, '_handleClick'));
     },
 

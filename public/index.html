@@ -45,15 +45,9 @@
   <form action="/search" method="get" id="search">
     <label for="q">Enter your search</label>
     <input name="q" type="search">
-    <ul class="searchers">
-      <li>
-        <label><input type="checkbox" name="svc" value="search.web"> web</label>
-      </li>
-      <li>
-        <label><input type="checkbox" name="svc" value="search.news"> news</label>
-      </li>
-    </ul>
+    <input type="submit" value="Search">
   </form>
+
   <ul id="searches"></ul>
   <ul id="results"></ul>
   
@@ -72,7 +66,7 @@
   // app-wide dependencies, not in requirejs module format
   require(['lib/pubsub.js', 'lib/mustache/mustache.js'], function() {
     // application
-    require(['app/app2'], function(init) {
+    require(['app/app'], function(init) {
       // application init on ready
       $(document).ready(init);
     });

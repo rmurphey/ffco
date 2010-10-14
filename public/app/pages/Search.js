@@ -14,12 +14,17 @@ require.def(
    */
   function(searchInputSetup, resultsViewSetup, recentSearchesSetup, searchServiceSetup, resultsService) {
     
-    // initialize all page components
     var resultsView = resultsViewSetup($('#results')),
         recentSearchesView = recentSearchesSetup($('#searches')),
+
+        searchServiceConfig = [
+          { name : 'search.web', displayName : 'web' },
+          { name : 'search.news', displayName : 'news' }
+        ],
+
         searchServices = {};
 
-    searchInputSetup($('#search'));
+    searchInputSetup($('#search'), searchServiceConfig);
 
     // when the user searches for a term ...
     $.subscribe('/search', function(term, svcs) {
@@ -55,11 +60,10 @@ require.def(
     
     // listen for result-related messages so we can pass them
     // to the resultsService accordingly
-    // TODO: would be nice for the tool options to not be hard-coded
-    $.each(['heart', 'hate'], function(i, tool) {
+    $.each(resultsView.toolTypes, function(i, tool) {
       $.subscribe('/result/' + tool, function(url) {
         resultsService.handleTool(tool, url);
-        $.publish('/app/info', [ 'You ' + tool + ' ' + url ]);
+        $.publish('/msg/info', [ 'You ' + tool + ' ' + url ]);
       });
     });
   }

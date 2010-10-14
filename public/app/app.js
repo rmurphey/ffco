@@ -1,14 +1,24 @@
-require.def(['./views/Messaging'], function(messaging) {
-  return function() {
-    // app-wide functionality
-    $.subscribe('/msg/info', $.proxy(messaging, 'info'));
-    $.subscribe('/msg/error', $.proxy(messaging, 'error'));
-    $.subscribe('/msg/warning', $.proxy(messaging, 'warning'));
+require.def(
 
-    // per-page functionality
-    require(['/app/pages/' + $('body').attr('data-page')], function(pageFn) { 
-      // if a page module returns a function, run it
-      pageFn && $.isFunction(pageFn) && pageFn(); 
+// app-wide dependencies
+['./views/Messaging'], 
+
+/**
+ * Sets up application-wide functionality, then figures out
+ * which page we're on based on the body element's data-page
+ * attribute, and loads the appropriate page functionality.
+ * @returns {Function} Application init function
+ */
+function(messaging) {
+  return function() {
+    // app-wide messaging functionality
+    $.each(messaging, function(type) {
+      $.subscribe('/msg/' + type, messaging[type]);
     });
+
+    // load per-page functionality
+    require(['/app/pages/' + $('body').attr('data-page')]);
   };
-});
+}
+
+);

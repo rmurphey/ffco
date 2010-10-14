@@ -1,0 +1,12 @@
+<form class="searchForm">
+  <label for="q">Enter your search term</label>
+  <input name="q" type="search">
+  <ul class="searchers">
+    {{#services}}
+    <li>
+      <label><input type="checkbox" name="svc" value="{{name}}"> {{displayName}}</label>
+    </li>
+    {{/services}}
+  </ul>
+  <input type="submit" value="Search">
+</form>

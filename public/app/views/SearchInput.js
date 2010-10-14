@@ -1,4 +1,5 @@
 require.def(
+['text!./templates/SearchInput.html'],
 /**
  * Search Input module
  *
@@ -9,7 +10,7 @@ require.def(
  * will announce the search term and search services requested
  * by the user.
  */
-function() {
+function(tpl) {
   /**
    * Parses a jQuery object containing a form 
    * into an object that contains the information
@@ -45,8 +46,13 @@ function() {
    * @param {Object} searchForm jQuery object containing the
    * form to be enabled.
    */
-  var searchFormSetup = function(searchForm) {
-    searchForm.submit(function(e) {
+  var searchFormSetup = function(searchForm, services) {
+    // create a new form from the template
+    // and replace the original form with it
+    var newForm = $(Mustache.to_html(tpl, { services : services }));
+    searchForm.replaceWith(newForm);
+
+    newForm.submit(function(e) {
       e.preventDefault();
       
       var formData = parseForm($(this));

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>require.def examples</title>
+</head>
+<body>
+  <script src="/lib/requireplugins-jquery-1.4.2.js"></script>
+  <script>
+  // tell require where it can find our files
+  require({ baseUrl : '/' });
+  
+  Object.create = typeof(Object.create) == 'function' ? Object.create : 
+    function(o) {
+      var F = new Function();
+      F.prototype = o;
+      return new F();
+    };
+
+    /**
+     * Example of three different ways to 
+     * use require.def module definition
+     */
+    require(
+      [
+        'examples/require-def-execOnly',
+        'examples/require-def-object',
+        'examples/require-def-factory' 
+      ],
+
+      function(execOnly, obj, factory) {
+        console.info('execOnly return value');
+        console.log(execOnly); 
+
+        console.info('example object usage');
+        (function() {
+          obj.publicMethod(); 
+          obj.setPrivateThing('a long string like this'); 
+          obj.publicMethod(); 
+        })();
+
+        console.info('example factory usage');
+        (function() {
+          var people = [
+            { firstName : 'Rebecca', lastName : 'Murphey' },
+            { firstName : 'Adam', lastName : 'Sontag' },
+            { firstName : 'Paul', lastName : 'Irish' },
+            { firstName : 'Alex', lastName : 'Sexton' }
+          ];
+
+          var speakers = $.map(people, factory);
+          speakers[2].speak(); 
+        })();
+      }
+    );
+  </script>
+</body>
+</html>
+

@@ -7,14 +7,16 @@ require.def(
   [
     '../views/SearchInput',
     '../views/Results', 
+    '../views/RecentSearches',
     '../services/Search',
     '../services/ResultsTools'
   ], 
 
   // page setup 
-  function(searchInputSetup, resultsViewSetup, searcherSetup, resultsTools) {
+  function(searchInputSetup, resultsViewSetup, recentSearchesSetup, searcherSetup, resultsTools) {
     var resultsView = resultsViewSetup({ container : $('#results') }),
         searchInput = searchInputSetup($('#search')),
+        recentSearches = recentSearchesSetup($('#searches')),
         searchers = {};
 
     // when the user searches for a term ...
@@ -27,6 +29,9 @@ require.def(
 
       // check to see if a search term was provided
       if (!$.trim(term)) { return; }
+
+      // add the term to recent searches
+      recentSearches.addTerm(term, svcs);
 
       // for each requested service ...
       $.each(svcs, function(i, svc) {

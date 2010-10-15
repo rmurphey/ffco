@@ -3,7 +3,7 @@ require.def(
     '../views/SearchInput',
     '../views/Results', 
     '../views/RecentSearches',
-    '../services/Search',
+    '../services/YQLSearch',
     '../services/Results'
   ], 
 

@@ -1,5 +1,5 @@
 require.def(
-['text!./templates/SearchInput.html'],
+['text!/app/views/templates/SearchInput.html'],
 /**
  * Search Input module
  *
@@ -22,7 +22,8 @@ function(tpl) {
     var formData = form.serializeArray(),
         ret = {},
         svcs = [];
-        
+
+
     $.each(formData, function(i, field) {
       if (field.name == 'q') {
         // use the q input for the term

@@ -32,12 +32,6 @@ require.def(
       // clear the results area first
       resultsView.clear();
 
-      // check to see if any services were indicated
-      if (!svcs.length) { return; }
-
-      // check to see if a search term was provided
-      if (!$.trim(term)) { return; }
-
       // add the term to recent searches
       recentSearchesView.addTerm(term, svcs);
 

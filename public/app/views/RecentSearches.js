@@ -7,7 +7,7 @@ require.def(
  */
 
   // template for search terms
-['text!./templates/RecentSearchTerm.html'], 
+['text!/app/views/templates/RecentSearchTerm.html'], 
 
 function(tpl) {
   /**

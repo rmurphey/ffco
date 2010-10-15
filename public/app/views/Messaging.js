@@ -7,7 +7,7 @@ require.def(
  */
 
   // messaging template
-  ['text!./templates/MessageBox.html'], 
+  ['text!/app/views/templates/MessageBox.html'], 
   
   function(tpl) {
 

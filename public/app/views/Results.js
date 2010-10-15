@@ -1,6 +1,6 @@
 require.def(
 // results set template
-['text!./templates/Results.html'], 
+['text!/app/views/templates/Results.html'], 
 
 /**
  * Results View module

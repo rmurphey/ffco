@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Functionality-Focused Code Organization</title>
+  <style>
+  body {
+  font-family:Helvetica, Arial, sans-serif;
+  width:970px;
+  margin:10px auto;
+  }
+  .tools span {
+  cursor:pointer;
+  }
+  .tools span.disabled {
+  color:#999;
+  cursor:default;
+  }
+  #messageBox {
+  border:5px solid #000;
+  border-top:none;
+  padding:10px;
+  background-color:#fff;
+  margin:-10px 0 20px 0;
+  }
+
+  #messageBox.error {
+  border-color:red;
+  }
+
+  #messageBox.warning {
+  border-color:orange;
+  }
+
+  #messageBox .close {
+  text-align:right;
+  font-size:80%;
+  font-style:italic;
+  cursor:pointer;
+  color:#ccc;
+  }
+  </style>
+</head>
+<body data-page="Search">
+  <form action="/search" method="get" id="search">
+    <label for="q">Enter your search</label>
+    <input name="q" type="search">
+    <input type="submit" value="Search">
+  </form>
+
+  <ul id="searches"></ul>
+  <ul id="results"></ul>
+  
+  <script src="/lib/requireplugins-jquery-1.4.2.js"></script>
+  <script src="/lib/mustache/mustache.js"></script>
+  <script src="/app/traditional.js"></script>
+</body>
+</html>

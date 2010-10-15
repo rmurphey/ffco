@@ -1,10 +1,11 @@
-require.def(function(){
+require.def(
 /**
  * Results API module
  *
  * Returns an object that exposes an API for working with results
  * and getting information about results by their URL
  */
+function(){
 
   /**
    * Closed (private) variable to contain data about results by URL
@@ -21,6 +22,15 @@ require.def(function(){
      */
     handleTool : function(type, url) {
       selections[url] = { type : type };
+      this._sendSelection(type, url);
+    },
+
+    /**
+     * Sends selection to the server
+     * @param {String} type The type of tool used
+     * @param {String} url The url of the result on which the tool was used
+     */
+    _sendSelection : function(type, url) {
       console.log('Pretend we sent a POST about how we ' + type + ' ' + url);
     },
 

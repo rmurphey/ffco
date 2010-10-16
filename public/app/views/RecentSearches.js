@@ -46,8 +46,9 @@ function(tpl) {
       }
 
       // create a new list item for the search term/services
-      this.terms[term] = $(Mustache.to_html(tpl, { term : term, svcs : svcs }))
-        .prependTo(this.el)
+      this.terms[term] = $(Mustache.to_html(tpl, { 
+        term : term, svcs : svcs.join(', ') 
+      })).prependTo(this.el)
         .data('svcs', svcs)
         .data('term', term);
     },
@@ -75,6 +76,7 @@ function(tpl) {
       // otherwise, let's re-search for the term
       // using the services they originally chose
       svcs = target.data('svcs');
+      term = target.data('term');
       $.publish('/search', [ term, svcs ]);
     }
   };

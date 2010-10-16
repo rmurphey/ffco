@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>PubSub Example</title>
+</head>
+<body>
+  <input type="button" class="magic" value="button 1" />
+  <input type="button" class="magic" value="button 2" />
+  
+  <script src="../lib/jquery-1.4.2.min.js"></script>
+  <script src="../lib/pubsub.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('input.magic').click(function(e) {
+      // publish a "topic" when something happens
+      $.publish('/something/interesting', [ this.value ]);
+    });
+
+    // register our interest in knowing when something happens
+    $.subscribe('/something/interesting', function(val) {
+      alert(val);
+    });
+  });
+  
+  $(document).ready(function() {
+    $('input.magic').click(function(e) {
+      $(document).trigger('/something/interesting', [ this.value ]);
+    });
+
+    $(document).bind('/something/interesting', function(e, val) {
+      alert(val);
+    });
+  });
+</body>
+</html>

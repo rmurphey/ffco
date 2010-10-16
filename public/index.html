@@ -22,6 +22,7 @@
   <script src="/lib/requireplugins-jquery-1.4.2.js"></script>
   <script>
   // tell require where it can find our files
+  window.INTERNETS = true;
   require({ baseUrl : '/' });
   
   Object.create = typeof(Object.create) == 'function' ? Object.create : 

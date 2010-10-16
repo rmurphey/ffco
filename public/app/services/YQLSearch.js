@@ -18,7 +18,7 @@ function(createSearchService) {
         /**
          * Base URL for all YQL requests
          */
-        baseUrl : 'http://query.yahooapis.com/v1/public/yql?callback=?',
+        baseUrl : window.INTERNETS ? 'http://query.yahooapis.com/v1/public/yql?callback=?' : '/data/news.json',
 
         /**
          * Default fields to fetch from the service.

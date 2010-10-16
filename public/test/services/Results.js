@@ -1,13 +1,19 @@
-require(['/app/services/Results'], function(results) {
+require(['/app/services/Results'], function(resultsSetup) {
 
-module('Results Service');
+var resultsService;
+
+module('Results Service', { 
+  setup : function() {
+    resultsService = resultsSetup();
+  }
+});
 
 test('Results data can be set and then retrieved', function() {
   expect(1);
 
-  results.handleTool('testTool', 'http://foo.com');
+  resultsService.handleTool('testTool', 'http://foo.com');
   equals(
-    results.getUrlData('http://foo.com').type, 
+    resultsService.getUrlData('http://foo.com').type, 
     'testTool', 
     'Proper data is returned when set'
   );

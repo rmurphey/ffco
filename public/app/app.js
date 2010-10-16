@@ -13,6 +13,8 @@ require.def(
 function(messaging) {
   return function() {
     // app-wide messaging functionality
+    messaging.element.appendTo('#messaging');
+
     $.each(messaging, function(type) {
       $.subscribe('/msg/' + type, messaging[type]);
     });

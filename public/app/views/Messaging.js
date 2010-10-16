@@ -13,7 +13,7 @@ function(tpl) {
   /**
    * Initialization for messaging functionality
    */
-  var messageBox = $(tpl).prependTo('body').hide(),
+  var messageBox = $(tpl).hide(),
       content = messageBox.find('div.content'),
       closer = messageBox.find('p.close span'),
 
@@ -98,6 +98,7 @@ function(tpl) {
   return {
     info : $.proxy(messaging, 'info'),
     error : $.proxy(messaging, 'error'),
-    warning : $.proxy(messaging, 'warning')
+    warning : $.proxy(messaging, 'warning'),
+    element : messageBox
   };
 });

@@ -30,7 +30,8 @@ function(createSearchService) {
          * hand them off to the rest of the application
          */
         _filterResponse : function(resp) {
-          return resp.query.results.result;
+          if ($.isArray(resp)) { return resp; }
+          return resp.query.results.result || [];
         },
         
         /**

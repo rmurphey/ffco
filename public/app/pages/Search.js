@@ -1,4 +1,5 @@
 require.def(
+  // dependencies
   [
     '../views/SearchInput',
     '../views/Results', 
@@ -8,63 +9,73 @@ require.def(
   ], 
 
   /**
-   * Search Page module
+   * Search Page mediator
    *
-   * Search page setup and topic subscriptions.
+   * This module sets up the services and views for the search page,
+   * then handles communication between the views and services.
    */
   function(
     searchInputSetup, 
     resultsViewSetup, 
     recentSearchesSetup, 
     searchServiceSetup, 
-    resultsService
+    resultsServiceSetup
   ) {
     
+    /**
+     * First, create the views and services for the page
+     *
+     * (we'll hold off on creating the search services until
+     * they're actualy needed)
+     */
     var resultsView = resultsViewSetup($('#results')),
         recentSearchesView = recentSearchesSetup($('#searches')),
-
-        searchServiceConfig = [
-          { name : 'search.web', displayName : 'web' },
-          { name : 'search.news', displayName : 'news' }
-        ],
-
+        resultsService = resultsServiceSetup(),
+        
         searchServices = {};
 
-    searchInputSetup($('#search'), searchServiceConfig);
-
-    // when the user searches for a term ...
-    $.subscribe('/search', function(term, svcs) {
-      
-      // clear the results area first
-      resultsView.clear();
-
-      // add the term to recent searches
-      recentSearchesView.addTerm(term, svcs);
-
-      // for each requested service ...
-      $.each(svcs, function(i, svc) {
-        // create a searcher for the service
-        // if one doesn't already exist
-        if (!searchServices[svc]) {
-          searchServices[svc] = searchServiceSetup({ name : svc });
-        }
-
-        // fetch results from the searcher
-        searchServices[svc].fetch(term, function(results) {
-          // pass the results to the results view
-          // once the searcher responds
-          resultsView.addResults(results);
-        });
-      });
-    });
+    searchInputSetup($('#search'), [
+      // the services that the search input will provide
+      { name : 'search.web', displayName : 'web' },
+      { name : 'search.news', displayName : 'news' }
+    ]);
     
-    // listen for result-related messages so we can pass them
-    // to the resultsService accordingly
+    /**
+     * Then, define the topics we want our mediator 
+     * to listen for, and how it should react when it 
+     * "hears" them.
+     */
+    var subscriptions = {
+      '/search' : function(term, svcs) {
+        resultsView.clear();
+        recentSearchesView.addTerm(term, svcs);
+
+        $.each(svcs, function(i, svc) {
+          if (!searchServices[svc]) {
+            searchServices[svc] = searchServiceSetup({ name : svc });
+          }
+
+          searchServices[svc].fetch(term, function(results) {
+            resultsView.addResults(results);
+          });
+        });
+      }
+    };
+
+    // add listeners for result tools to subscriptions
+    // based on the list of tools provided by the results view
     $.each(resultsView.toolTypes, function(i, tool) {
-      $.subscribe('/result/' + tool, function(url) {
+      subscriptions['/result/' + tool] = function(url) {
         resultsService.handleTool(tool, url);
         $.publish('/msg/info', [ 'You ' + tool + ' ' + url ]);
-      });
+      };
+    });
+
+    /**
+     * Set up subscriptions
+     */
+    $.each(subscriptions, function(topic, fn) {
+      $.subscribe(topic, fn);
     });
   }
 );

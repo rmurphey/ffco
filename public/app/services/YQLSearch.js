@@ -1,12 +1,14 @@
 require.def(
 
+// base _SearchService module, which provides a function
+// for creating a search service with a particular config
 ['/app/services/_SearchService'], 
 
 /**
- * Search Service module
+ * YQL Search Service module
  *
  * Returns a function that can be used to create a new instance
- * of a search service using the Service prototype.
+ * of a YQL search service 
  */
 function(createSearchService) {
 
@@ -14,7 +16,7 @@ function(createSearchService) {
   var services = {},
       YQLSearch = createSearchService({
         /**
-         * Base URL for all requests
+         * Base URL for all YQL requests
          */
         baseUrl : 'http://query.yahooapis.com/v1/public/yql?callback=?',
 
@@ -24,7 +26,8 @@ function(createSearchService) {
         fields : [ 'title', 'abstract', 'url' ],
 
         /**
-         * Deal with YQL-type results
+         * Pre-processing for YQL results before we 
+         * hand them off to the rest of the application
          */
         _filterResponse : function(resp) {
           return resp.query.results.result;

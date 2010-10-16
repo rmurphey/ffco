@@ -1,15 +1,14 @@
 require.def(
+
+['text!/app/views/templates/MessageBox.html'], 
+
 /**
  * Messaging module
  *
  * Returns an API for application-wide messaging. This API is intended to be included
  * in the application, and then connected to via topic subscription.
  */
-
-  // messaging template
-  ['text!/app/views/templates/MessageBox.html'], 
-  
-  function(tpl) {
+function(tpl) {
 
   /**
    * Initialization for messaging functionality

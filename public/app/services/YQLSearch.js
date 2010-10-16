@@ -37,7 +37,10 @@ function(createSearchService) {
          * @private
          */
         _buildQuery : function(term) {
-          return 'select ' + this.fields.join(',') + ' from ' + this.name + ' where query="' + term + '"';
+          return 'select ' + 
+            this.fields.join(',') + 
+            ' from ' + this.name + 
+            ' where query="' + term + '"';
         }
       });
       

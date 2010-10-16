@@ -12,7 +12,13 @@ require.def(
    *
    * Search page setup and topic subscriptions.
    */
-  function(searchInputSetup, resultsViewSetup, recentSearchesSetup, searchServiceSetup, resultsService) {
+  function(
+    searchInputSetup, 
+    resultsViewSetup, 
+    recentSearchesSetup, 
+    searchServiceSetup, 
+    resultsService
+  ) {
     
     var resultsView = resultsViewSetup($('#results')),
         recentSearchesView = recentSearchesSetup($('#searches')),

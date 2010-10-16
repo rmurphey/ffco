@@ -28,10 +28,7 @@
         'examples/require-def-factory' 
       ],
 
-      function(execOnly, obj, factory) {
-        console.info('execOnly return value');
-        console.log(execOnly); 
-
+      function(obj, factory) {
         console.info('example object usage');
         (function() {
           obj.publicMethod(); 

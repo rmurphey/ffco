@@ -1,4 +1,4 @@
-require.def(
+define(
   // dependencies
   [
     '../views/SearchInput',

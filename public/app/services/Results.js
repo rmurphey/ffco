@@ -1,4 +1,4 @@
-require.def(
+define(
 /**
  * Results API module
  *

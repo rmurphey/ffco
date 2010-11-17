@@ -1,4 +1,4 @@
-require.def(
+define(
 
 ['text!/app/views/templates/MessageBox.html'], 
 

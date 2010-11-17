@@ -1,4 +1,4 @@
-require.def(
+define(
 
 // template dependency
 ['text!/app/views/templates/SearchInput.html'],

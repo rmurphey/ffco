@@ -1,4 +1,4 @@
-require.def(
+define(
 // results set template
 ['text!/app/views/templates/Results.html'], 
 

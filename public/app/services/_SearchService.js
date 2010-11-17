@@ -1,4 +1,4 @@
-require.def(
+define(
 
 /**
  * Base JSONP Search Service module

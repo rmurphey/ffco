@@ -1,4 +1,4 @@
-require.def(
+define(
 
 // app-wide dependencies
 ['app/views/Messaging'], 

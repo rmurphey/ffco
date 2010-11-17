@@ -1,4 +1,4 @@
-require.def(
+define(
 
 // base _SearchService module, which provides a function
 // for creating a search service with a particular config

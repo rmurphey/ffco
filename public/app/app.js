@@ -1,7 +1,7 @@
 require.def(
 
 // app-wide dependencies
-['/app/views/Messaging'], 
+['app/views/Messaging'], 
 
 /**
  * Sets up application-wide functionality, then figures out
@@ -20,7 +20,7 @@ function(messaging) {
     });
 
     // load per-page functionality
-    require(['/app/pages/' + $('body').attr('data-page')]);
+    require(['app/pages/' + $('body').attr('data-page')]);
   };
 }
 

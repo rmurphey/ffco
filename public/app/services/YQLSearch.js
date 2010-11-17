@@ -2,7 +2,7 @@ require.def(
 
 // base _SearchService module, which provides a function
 // for creating a search service with a particular config
-['/app/services/_SearchService'], 
+['app/services/_SearchService'], 
 
 /**
  * YQL Search Service module

@@ -106,7 +106,7 @@ input, select {
 
 body {
   font-family:Helvetica, Arial, sans-serif;
-  width:970px;
+  width:600px;
   margin:10px auto;
 }
 
@@ -146,7 +146,7 @@ h1 {
 
 #results {
   float:right;
-  width :700px;
+  width :400px;
   margin:10px 0 0 10px;
 }
 
